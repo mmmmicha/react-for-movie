@@ -1,0 +1,64 @@
+import { useEffect, useState } from 'react';
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch('https://api.coinpaprika.com/v1/tickers')
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json.slice(0, 50));
+        setLoading(false);
+      });
+  }, []);
+  const [value, setValue] = useState('');
+  const onChange = (event) => {
+    console.log(event.target.value);
+    setValue(event.target.value);
+  };
+
+  const handleCoinConveration = () => {
+    // your calculation
+    console.log(selectedObj.quotes.USD.price);
+    setResult(Number(value) / Number(selectedObj.quotes.USD.price));
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    handleCoinConveration();
+  };
+  const [result, setResult] = useState('');
+  let selectedObj;
+  const onSelectChange = (event) => {
+    selectedObj = event.target.value;
+    selectedObj = JSON.parse(selectedObj);
+  };
+  return (
+    <div>
+      <h1>The Coins! {loading ? '' : `(${coins.length})`}</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          onChange={onChange}
+          value={value}
+          placeholder={'Enter your price'}
+        ></input>
+        <button>submit</button>
+        <hr />
+      </form>
+      {loading ? (
+        <strong>Loading...</strong>
+      ) : (
+        <select onChange={onSelectChange}>
+          {coins.map((coin, index) => (
+            <option key={coin.id} value={JSON.stringify(coin)}>
+              {coin.name} ({coin.symbol}) : {coin.quotes.USD.price} USD
+            </option>
+          ))}
+        </select>
+      )}
+      result : <input disabled type="text" initalvalue="" value={result} />
+    </div>
+  );
+}
+
+export default App;
