@@ -34,30 +34,48 @@ function App_coin() {
     setSelectedObj(JSON.parse(event.target.value));
   };
   return (
-    <div>
-      <h1>The Coins! {loading ? '' : `(${coins.length})`}</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          onChange={onChange}
-          value={value}
-          placeholder={'Enter your price'}
-        ></input>
-        <button>submit</button>
-        <hr />
-      </form>
-      {loading ? (
-        <strong>Loading...</strong>
-      ) : (
-        <select onChange={onSelectChange}>
-          {coins.map((coin, index) => (
-            <option key={coin.id} value={JSON.stringify(coin)}>
-              {coin.name} ({coin.symbol}) : {coin.quotes.USD.price} USD
-            </option>
-          ))}
-        </select>
-      )}
-      <div>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        // justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <div
+        style={{
+          marginTop: 0,
+        }}
+      >
+        <h1>The Coins! {loading ? '' : `(${coins.length})`}</h1>
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            onChange={onChange}
+            value={value}
+            placeholder={'Enter your price'}
+          ></input>
+          <button>submit</button>
+          <hr />
+        </form>
+        {loading ? (
+          <strong>Loading...</strong>
+        ) : (
+          <select style={{ width: 280 }} onChange={onSelectChange}>
+            {coins.map((coin, index) => (
+              <option key={coin.id} value={JSON.stringify(coin)}>
+                {coin.name} ({coin.symbol}) : {coin.quotes.USD.price} USD
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
+      <div
+        style={{
+          marginTop: 48,
+        }}
+      >
         result : <input disabled type="text" initalvalue="" value={result} /> eq
       </div>
     </div>
