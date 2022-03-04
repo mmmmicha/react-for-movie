@@ -8,7 +8,7 @@ function Hello() {
   return <h1>Hello</h1>;
 }
 
-function App() {
+function App_cleanUp() {
   const [showing, setShowing] = useState(false);
   const onClick = () => setShowing((prev) => !prev);
   return (
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default App_cleanUp;

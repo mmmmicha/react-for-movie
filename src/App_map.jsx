@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-function App() {
+function App_map() {
   const [toDo, setToDo] = useState('');
   const [toDos, setToDos] = useState([]);
   const onChange = (event) => setToDo(event.target.value);
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App_map;
